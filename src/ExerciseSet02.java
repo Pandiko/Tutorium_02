@@ -18,7 +18,7 @@ public class ExerciseSet02 {
             printSequence2(num);
         }else if (SequenceNumber == 3) {
             printSequence3(num);
-            String answer = Terminal.readString("Wanna visualise your Triangualr Number: ");
+            String answer = Terminal.readString("Wanna visualise your Triangular Number: ");
             if (answer == "yes") {
                 printTriangle(num);
             }
