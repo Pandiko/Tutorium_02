@@ -67,17 +67,20 @@ public class ExerciseSet04 {
     public static void convertHexToDec0() {
         System.out.print("Please provide a hexadecimal number (e.g. 1f): ");
         int result = 0;
+        String hexNum = "";
         char ch = Terminal.readChar();
         while (ch != '\n') {
             int code = ch;
             System.out.println(ch + " -> " + code);
             ch = Terminal.readChar();
+            int number = convertToNumber(ch);
+            hexNum = hexNum + ch;
         }
-        convertToNumber(ch);
+        result = Integer.parseInt(hexNum,16);
         System.out.println("Corresponding decimal number: " + result);
     }
     public static int convertToNumber(char ch) {
-        int result = 0;
-        return result;
+        int i = ch - '0';
+        return i;
     }
 }
