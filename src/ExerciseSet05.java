@@ -1,7 +1,4 @@
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
-
 
 public class ExerciseSet05 {
     public static void main(String[] args) {
@@ -88,16 +85,16 @@ public class ExerciseSet05 {
         double[] vec1 = new double[2];
         double[] vec2 = new double[2];
         double factor;
-        double deg;
+        int deg;
         vec1[0] = Terminal.readDouble("Vektor 1, x");
         vec1[1] = Terminal.readDouble("Vektor 1, y");
         vec2[0] = Terminal.readDouble("Vektor 2, x");
         vec2[1] = Terminal.readDouble("Vektor 2, y");
         factor  = Terminal.readDouble("Faktor          ");
-        deg     = Terminal.readDouble("Winkel (in Grad)");
+        deg     = Terminal.readInt("Winkel (in Grad)");
         System.out.println("v1 * fact    : " + Arrays.toString(multi(vec1, factor)));
         System.out.println("v1 + v2      : " + Arrays.toString(plus(vec1, vec2)));
-        System.out.println("v1 - v2      : " + Arrays.toString(plus(vec1, vec2)));
+        System.out.println("v1 - v2      : " + Arrays.toString(minus(vec1, vec2)));
         System.out.println("vlength(v1)  : " + vLength(vec1));
         System.out.println("rot(v1, deg) : " + Arrays.toString(rotate2d(vec1, deg)));
     }
@@ -131,14 +128,13 @@ public class ExerciseSet05 {
         return result;
     }
 
-    public static double[] rotate2d (double vec[], double deg) {
+    public static double[] rotate2d (double[] vec, int deg) {
         //local variable for calculation
         double[] result = new double[2];
-        double rad = deg * (Math.PI / 180);
         //calculation of new x
-        result[0] = (vec[0] * Math.cos(rad) - vec[1]  * Math.sin(rad));
+        result[0] = (vec[0] * Math.cos(Math.toRadians(deg)) - vec[1]  * Math.sin(Math.toRadians(deg)));
         //calculation of new y
-        result[1] = (vec[0] * Math.sin(rad)) + (vec[1] * Math.cos(rad));
+        result[1] = (vec[0] * Math.sin(Math.toRadians(deg))) + (vec[1] * Math.cos(Math.toRadians(deg)));
         return result;
     }
     public static double vLength (double[] vec) {
@@ -149,16 +145,27 @@ public class ExerciseSet05 {
     }
     public static void Exercise4 () {
 
-        double[] vec1 = new double[2];
-        double[] vec2 = new double[2];
-        double[] moleHill = new double[2];
+        int Amount;
+        double[] vecPrev = new double[2];
+        double[] vecNow = new double[2];
+        double[] vecBetween = new double[2];
+        double[] vecFuture = new double[2];
 
-        vec1[0] = Terminal.readDouble("Huegel 1, x");
-        vec1[1] = Terminal.readDouble("Huegel 1, y");
-        vec2[0] = Terminal.readDouble("Huegel 2, x");
-        vec2[1] = Terminal.readDouble("Huegel 2, y");
+        vecPrev[0] = Terminal.readDouble("vorheriger Hügel, x");
+        vecPrev[1] = Terminal.readDouble("vorheriger Hügel, y");
+        vecNow[0] = Terminal.readDouble("jetziger Huegel, x");
+        vecNow[1] = Terminal.readDouble("jetziger Huegel, y");
+        Amount = Terminal.readInt("Wie viele Haufen?");
 
+        for (int i = 1; i <= Amount; i++) {
+            vecBetween = minus(vecNow, vecPrev);
+            vecFuture = multi(rotate2d(plus(vecNow, vecBetween), 5),0.99);
 
+            System.out.println(i + ". Haufen: " + Arrays.toString(vecFuture));
+
+            vecNow = vecFuture;
+            vecPrev = vecNow;
+        }
     }
 
 }
